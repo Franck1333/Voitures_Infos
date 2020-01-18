@@ -1,6 +1,12 @@
 # FR_Template
 
-This Software allow you to get financials informations about cryptocurrencies by using Python3 and the UI that will let you interact to the software with a modern graphic user interface.
+This software got you some interesting infos when you go somwhere.
+The DOC and the SOFT still under dev, so please wait a bit to get more infos about the project;
+Thank You, ROCHAT FRANCK.
+
+
+
+
 
 [![Image](https://alternative.me/crypto/fear-and-greed-index.png)](https://alternative.me/crypto/fear-and-greed-index.png)  
 
