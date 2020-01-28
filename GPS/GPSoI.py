@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
 #Aides: https://stackoverflow.com/questions/24906833/get-your-location-through-python

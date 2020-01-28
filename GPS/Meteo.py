@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
 #Aides :
@@ -80,5 +80,23 @@ def main_meteo():
     return tk_status_climat,tk_climat_min,tk_climat_now,tk_climat_max,tk_vitesse_du_vent,tk_volume_de_neige,tk_volume_de_pluie,tk_pourcentage_humidite,tk_couverture_de_nuage             #Retourne les valeurs obtenues
     #----------------------------------------------------------------------------------------------------------------------------
 
+def Meteo_Simplifie():
+    owm = pyowm.OWM('7435ea1b7ee5e31fe1f524a922202510',language = "fr")
+    latitude,latitude_Hemisphere,Longitude,Longitude_Hemisphere = boussole()    #Fonction permettant de lancer la capture les infomations provenant du STICK GPS
+    observation = owm.weather_at_coords(latitude,Longitude)                     #Recuperation des Coordonnees du lieu cible
+    z = observation.get_weather()                                               #Obtention des donnees meteorologique via les coordonees
+
+    Temperature         = z.get_temperature('celsius')['temp']
+    conditions_meteo    = z.get_detailed_status()
+
+    tk_temp = str(Temperature)+" °C"
+
+    print("Meteo Simplifie: "+ tk_temp+', '+conditions_meteo)
+
+    return tk_temp,conditions_meteo
+
+
+
 if __name__ == "__main__":
-    main_meteo()                        #Lancement du Programme Principal Meteo
+    #main_meteo()                        #Lancement du Programme Principal Meteo.
+    Meteo_Simplifie()                   #Obtention des donnes essentiel pour la comprehension des conditions meteo actuels.

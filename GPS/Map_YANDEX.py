@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 #Aides : https://stackoverflow.com/questions/43009527/how-to-insert-an-image-in-a-canvas-item
