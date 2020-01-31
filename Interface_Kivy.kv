@@ -1,5 +1,6 @@
 #Pour gérer la partie KV soit on ecrit le contenue directement dans cette methode de cette facon ou alors on renseigne de cette meme facon un fichier local avec ce contenue
 #Lorque le language KV est utiliser, il est pas necessaire d'importer quoi que ce soit.
+#Selection de la couleur par H.S.V
 #---------------------------------------------------------------------------------------------------------------------------------------
 <MaDisposition>
 
@@ -87,41 +88,58 @@
             bold: False                                      #Parametre permettant de mettre en gras un label
             italic: False                                    #Permet de mettre en italique le contenue du label
             underline : False                                #Permet de souligner le contenue du label
-            color: (13,1,1,1)                                #Parametre permettant d'ajouter de la couleur a un label
-
-        Label:
-            id: Label_PrixCarbu
-            text_language: "fr"
-            text: "SP-98: 1,501 €/L"
-
-            bold: False                                      #Parametre permettant de mettre en gras un label
-            italic: False                                    #Permet de mettre en italique le contenue du label
-            underline : False                                #Permet de souligner le contenue du label
-            color: (13,1,1,1)                                #Parametre permettant d'ajouter de la couleur a un label
-
+            color: (173,1,1,1)                                #Parametre permettant d'ajouter de la couleur a un label
 
         Label:
             id: Label_Vitesse_U
             text_language: "fr"
-            text: "69 Km\h"
+            text: root.Vitesse_KMH
 
             bold: False                                      #Parametre permettant de mettre en gras un label
             italic: False                                    #Permet de mettre en italique le contenue du label
             underline : False                                #Permet de souligner le contenue du label
-            color: (13,1,1,1)                                #Parametre permettant d'ajouter de la couleur a un label
+            color: (13,1,100,1)                                #Parametre permettant d'ajouter de la couleur a un label
 
         Label:
             id: Label_Vitesse_L
             text_language: "fr"
-            text: "Vitesse Limite 80 Km\h"
+            text: "Vitesse Limite: 00 Km\h"
 
             bold: False                                      #Parametre permettant de mettre en gras un label
             italic: False                                    #Permet de mettre en italique le contenue du label
             underline : False                                #Permet de souligner le contenue du label
-            color: (13,1,1,1)                                #Parametre permettant d'ajouter de la couleur a un label
+            color: (13,1,100,1)                                #Parametre permettant d'ajouter de la couleur a un label
 
-    
+        Label:
+            id: Label_PrixLieux_carbu
+            text_language: "fr"
+            text: root.lieux_carbu
+            color: (28,68,100,1)                                #Parametre permettant d'ajouter de la couleur a un label
 
+
+        Label:
+            id: Label_prix_sp_98
+            text_language: "fr"
+            text: root.prix_sp_98
+            color: (28,68,100,1)                                #Parametre permettant d'ajouter de la couleur a un label
+
+        Label:
+            id: Label_prix_e10
+            text_language: "fr"
+            text: root.prix_e10
+            color: (28,68,100,1)                                #Parametre permettant d'ajouter de la couleur a un label
+
+        Label:
+            id: Label_prix_diesel
+            text_language: "fr"
+            text: root.prix_diesel
+            color: (28,68,100,1)                                #Parametre permettant d'ajouter de la couleur a un label
+
+        Label:
+            id: Label_prix_gpl
+            text_language: "fr"
+            text: root.prix_gpl
+            color: (28,68,100,1)                                #Parametre permettant d'ajouter de la couleur a un label
 
     BoxLayout:
         orientation: 'vertical'

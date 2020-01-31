@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
 #AIDES:
@@ -32,6 +32,7 @@ def msg_num_pad(msg_num, idx):
     return str(((int(msg_num) - 1) * 4) + idx).zfill(2)+":"
 
 def decodeGSV(GSVobj):
+#http://aprs.gids.nl/nmea/#gsv
     #print ("GSV msg_num", GSVobj.msg_num)
     sat_num = []
     for i in range(1,5):

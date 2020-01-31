@@ -32,8 +32,9 @@ def la_Vitesse_GPS():
     #Convertir les noeds en Kilometre par heure KMH
     KMH = float(RMCmsg.spd_over_grnd) * 1.852                                   #On convertis la valeur recue en Noeud en Kilometre Par Heure
     print("La vitesse de l'utilisateur: "+ str(KMH) + " Kilometre /h")          #On affiche le resultat dans la console
+    Affichage_KMH = "Votre Vitesse : "+str(KMH)+" Km\h"
 
-    return KMH                                                                  #On retourne la valeur pour une utilisation ulterieure (UI)
+    return Affichage_KMH                                                        #On retourne la valeur pour une utilisation ulterieure (UI)
 
 if __name__ == "__main__":
     la_Vitesse_GPS()    #Fonction permette d'obtenir la vitesse de l'utilisateur en Kilometre par heure.

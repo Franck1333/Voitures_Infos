@@ -29,6 +29,9 @@ from Infos_Hardware import CPU_usage                        #Obtention de l'util
 from Infos_Hardware import CPU_temp                         #Obtention de la Temperature du Processeur sur la carte mere
 from Infos_Hardware import SoC_info                         #Obtention des informations concernant le package CPU+GPU
 from Infos_Hardware import MEM_info                         #Obtention de l'utilisation de la Memoire Vive du Systeme
+
+from Services_Energies import Energies_Carburants_GPSoI
+from Vitesse_Utilisateur import la_Vitesse_GPS
 #---------------------------------------Project LIB---------------------------------------
 
 
@@ -65,10 +68,28 @@ class MaDisposition(BoxLayout, Screen):
     #--Informations Materiels--
 
     #--Informations Complementaires--
-    Voiture_PNG = "/home/"+USERNAME+"/Voitures_Infos/Services/images_defaut/Voiture.png" #Pour indiquer le chemin ou se trouve l'Image de l'index dans l'Ordinateur
+    GPS_signal = StringProperty()        #Faire le Service correspondant
+    Wifi_signal = StringProperty()       #Faire aussi le Service corrrespondant
+    Vitesse_KMH = StringProperty()
+    vitesse_limite = StringProperty()    #Idem ici, Concevoir le service correspondant
     #--Informations Complementaires--
 
-    #---Variables a Mettre a jour---            
+    #--Infos Meteo Simplifie--
+    meteo_simplifie = StringProperty()
+    #--Infos Meteo Simplifie--
+    
+    #--Infos Energies--
+    lieux_carbu = StringProperty()
+    prix_sp_98  = StringProperty()
+    prix_e10  = StringProperty()
+    prix_diesel  = StringProperty()
+    prix_gpl  = StringProperty()   
+    #--Infos Energies--
+
+    #---Variables a Mettre a jour---
+
+    Voiture_PNG = "/home/"+USERNAME+"/Voitures_Infos/Services/images_defaut/Voiture.png" #Pour indiquer le chemin ou se trouve l'Image dans l'Ordinateur
+    
     def __init__(self, **kwargs):
         super(MaDisposition, self).__init__(**kwargs)   #On SuperCharge la classe
 
@@ -78,8 +99,9 @@ class MaDisposition(BoxLayout, Screen):
         #Clock.schedule_interval(self.methode, X Secondes d'interval de rafraichissement)
         Clock.schedule_interval(self.temps_actuel_update,1)
         Clock.schedule_interval(self.update_information_Materiel,1)                     #On indique a Kivy quand Commencer/Re-commencer l'execution d'une methode
+        Clock.schedule_once(self.Prix_des_Carbu)
         #Clock.schedule_once(self.update_information_Complementaire)
-        #Clock.schedule_interval(self.update_information_Complementaire, 313)
+        Clock.schedule_interval(self.update_information_Complementaire, 1)
         #---Elements a Mettre a jour---
 
     
@@ -99,7 +121,6 @@ class MaDisposition(BoxLayout, Screen):
     #---------------------------------------------
     def information_Materiel(self):
         #Obtention des Informations Materiel de l'Ordinateur
-
         #--        
         self.UtilisationCPU = CPU_usage()                                           #Obtention du Niveau d'utilisation du Processeur.
         self.MemoireUtilise = MEM_info()                                            #Obtention d'information par rapport à la Memoire Vive.
@@ -118,13 +139,25 @@ class MaDisposition(BoxLayout, Screen):
 
     #---------------------------------------------
     def information_Complementaire(self):
-        #Recuperation des Informations  
-        print("Aucune Informations Supp. à affichée pour le moment.")               #On Obtient un mot dans le carnet de correspondance.
-        
-    #def update_information_Complementaire(self, *args):
-    #    #Mise à Jour des Informations reçues
-    #    print("Carnet Mise a Jour")                                                #On met a jour le carnet de correspondance.
+        #Recuperation des Informations
+        #Infos: GPS,WIFI et infos vitesses
+        #print("Infos GPS/WIFI/Vitesses/ ici")               #On Obtient un mot dans le carnet de correspondance.
+        self.Vitesse_KMH = la_Vitesse_GPS()
+                
+    def update_information_Complementaire(self, *args):
+        #Mise à Jour des Informations reçues
+        #print("Carnet Mise a Jour")                                #On met a jour le carnet de correspondance.
+        self.Vitesse_KMH = la_Vitesse_GPS()
     #---------------------------------------------
+
+    #---------------------------------------------
+    def Prix_des_Carbu(self, *args):
+        #Obtention des prix des differents carburant disponibles pres de l'utilisateur
+        #--        
+        self.lieux_carbu,self.prix_sp_98,self.prix_e10,self.prix_diesel,self.prix_gpl = Energies_Carburants_GPSoI()
+        #--
+    #---------------------------------------------
+    
 #---------------------------------------------------------------------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------------------------------------------------------------------
@@ -152,7 +185,7 @@ sm.add_widget(Fonctionnalitee_2(name='Fonctionnalitee 2'))
 sm.add_widget(Fonctionnalitee_3(name='Fonctionnalitee 3'))
 #---------------------------------------------Creation du Screen Manager---------------------------------------------
       
-class CryptoWatchApp(App):
+class Voitures_InfosApp(App):
 
     def on_start(self):
         #Indique ce que l'on fait au demarage du logiciel.
@@ -168,4 +201,4 @@ class CryptoWatchApp(App):
     
 if __name__ == "__main__":
     #Demarage du Logiciel Kivy
-    CryptoWatchApp().run()
+    Voitures_InfosApp().run()

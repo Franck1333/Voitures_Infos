@@ -63,6 +63,11 @@ def Energies_Carburants_GPSoI():
         print("prix_diesel : "+ str(prix_diesel)+" €/L")
         print("prix_gpl : "+str(prix_gpl)+" €/L")
 
+        Affichage_prix_sp_98 = "SP-98: "+str(prix_sp_98)+" €/L"
+        Affichage_prix_e10 = "E10: "+str(prix_e10)+" €/L"
+        Affichage_prix_diesel = "Diesel: "+str(prix_diesel)+" €/L"
+        Affichage_prix_gpl = "GPL: "+str(prix_gpl)+" €/L"
+
     except KeyError:
         print("Code Erreur: KeyError, Il y a peut-etre pas de GPL ici ?")
         prix_gpl = 0.00
@@ -73,8 +78,14 @@ def Energies_Carburants_GPSoI():
         print("prix_e10 : "+ str(prix_e10)+" €/L")
         print("prix_diesel : "+ str(prix_diesel)+" €/L")
         print("prix_gpl : "+str(prix_gpl)+" €/L")
+
+        Affichage_Lieux = "Prix carburants sur "+Ville+","+str(postal)+": " 
+        Affichage_prix_sp_98 = "SP-98: "+str(prix_sp_98)+" €/L"
+        Affichage_prix_e10 = "E10: "+str(prix_e10)+" €/L"
+        Affichage_prix_diesel = "Diesel: "+str(prix_diesel)+" €/L"
+        Affichage_prix_gpl = "GPL: "+str(prix_gpl) +" €/L"
         
-    return Ville,postal,prix_sp_98,prix_e10,prix_diesel,prix_gpl
+    return Affichage_Lieux,Affichage_prix_sp_98,Affichage_prix_e10,Affichage_prix_diesel,Affichage_prix_gpl
 
 def Energie_essence98():
     send_url = "http://public.opendatasoft.com/api/records/1.0/search//?dataset=prix_des_carburants_j_7&lang=fr&rows=1&sort=price_sp98&facet=price_sp98&refine.cp=49120&timezone=Europe%2FParis"
@@ -122,5 +133,5 @@ if __name__ == "__main__":
     #Energie_essence95()
     #Energie_diesel()
     #Energie_gpl()
-    Energies_Carburants()
+    #Energies_Carburants()
     Energies_Carburants_GPSoI()
