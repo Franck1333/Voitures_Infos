@@ -32,6 +32,8 @@ from Infos_Hardware import MEM_info                         #Obtention de l'util
 
 from Services_Energies import Energies_Carburants_GPSoI
 from Vitesse_Utilisateur import la_Vitesse_GPS
+from Meteo import Meteo_Simplifie
+from Etat_Signal_GPS import Etat_connection_GPS
 #---------------------------------------Project LIB---------------------------------------
 
 
@@ -68,7 +70,7 @@ class MaDisposition(BoxLayout, Screen):
     #--Informations Materiels--
 
     #--Informations Complementaires--
-    GPS_signal = StringProperty()        #Faire le Service correspondant
+    etat_co_gps = StringProperty()
     Wifi_signal = StringProperty()       #Faire aussi le Service corrrespondant
     Vitesse_KMH = StringProperty()
     vitesse_limite = StringProperty()    #Idem ici, Concevoir le service correspondant
@@ -99,9 +101,12 @@ class MaDisposition(BoxLayout, Screen):
         #Clock.schedule_interval(self.methode, X Secondes d'interval de rafraichissement)
         Clock.schedule_interval(self.temps_actuel_update,1)
         Clock.schedule_interval(self.update_information_Materiel,1)                     #On indique a Kivy quand Commencer/Re-commencer l'execution d'une methode
-        Clock.schedule_once(self.Prix_des_Carbu)
-        #Clock.schedule_once(self.update_information_Complementaire)
         Clock.schedule_interval(self.update_information_Complementaire, 1)
+
+        Clock.schedule_once(self.La_meteo_simplifie)
+        Clock.schedule_interval(self.La_meteo_simplifie,3613)
+        
+        Clock.schedule_once(self.Prix_des_Carbu)
         #---Elements a Mettre a jour---
 
     
@@ -143,11 +148,13 @@ class MaDisposition(BoxLayout, Screen):
         #Infos: GPS,WIFI et infos vitesses
         #print("Infos GPS/WIFI/Vitesses/ ici")               #On Obtient un mot dans le carnet de correspondance.
         self.Vitesse_KMH = la_Vitesse_GPS()
+        self.etat_co_gps = Etat_connection_GPS()
                 
     def update_information_Complementaire(self, *args):
         #Mise à Jour des Informations reçues
         #print("Carnet Mise a Jour")                                #On met a jour le carnet de correspondance.
         self.Vitesse_KMH = la_Vitesse_GPS()
+        self.etat_co_gps = Etat_connection_GPS()
     #---------------------------------------------
 
     #---------------------------------------------
@@ -156,6 +163,12 @@ class MaDisposition(BoxLayout, Screen):
         #--        
         self.lieux_carbu,self.prix_sp_98,self.prix_e10,self.prix_diesel,self.prix_gpl = Energies_Carburants_GPSoI()
         #--
+    #---------------------------------------------
+
+    #---------------------------------------------
+    def La_meteo_simplifie(self, *args):
+        #Affichage simplifiee de la meteo
+        self.meteo_simplifie = Meteo_Simplifie()        
     #---------------------------------------------
     
 #---------------------------------------------------------------------------------------------------------------------------------------

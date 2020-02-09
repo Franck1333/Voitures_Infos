@@ -93,7 +93,9 @@ def Meteo_Simplifie():
 
     print("Meteo Simplifie: "+ tk_temp+', '+conditions_meteo)
 
-    return tk_temp,conditions_meteo
+    Affichage_simplifiee_meteo = conditions_meteo+" pour "+ tk_temp
+
+    return Affichage_simplifiee_meteo
 
 
 
