@@ -71,8 +71,8 @@ def main_meteo():
     tk_climat_now= "La Temperature Actuel est de : " + str(climat_now) + " °C"                                  #Mise en page pour l'utilisation par les UI
     tk_vitesse_du_vent= "La Vitesse du Vent : " + str(vitesse_du_vent) + " m/s"                                 #Mise en page pour l'utilisation par les UI
     tk_status_climat = "En bref, le climat est : " + str(status_climat)                                         #Mise en page pour l'utilisation par les UI
-    tk_volume_de_neige = "Le volume de Neige est : " + str(volume_de_neige)                                     #Mise en page pour l'utilisation par les UI
-    tk_volume_de_pluie= "Le volume de Pluie est : " + str(volume_de_pluie)                                      #Mise en page pour l'utilisation par les UI
+    tk_volume_de_neige = "Le volume de Neige est : " + str(volume_de_neige)+ " L"                               #Mise en page pour l'utilisation par les UI
+    tk_volume_de_pluie= "Le volume de Pluie est : " + str(volume_de_pluie)+ " L"                                #Mise en page pour l'utilisation par les UI
     tk_couverture_de_nuage = "Le Taux de Nuage dans le ciel : " + str(couverture_de_nuage) + " %"               #Mise en page pour l'utilisation par les UI
     tk_pourcentage_humidite = "Le Taux d'humidite : " + str(pourcentage_humidite) + " %"                        #Mise en page pour l'utilisation par les UI
     
@@ -100,5 +100,5 @@ def Meteo_Simplifie():
 
 
 if __name__ == "__main__":
-    #main_meteo()                        #Lancement du Programme Principal Meteo.
-    Meteo_Simplifie()                   #Obtention des donnes essentiel pour la comprehension des conditions meteo actuels.
+    main_meteo()                        #Lancement du Programme Principal Meteo.
+    #Meteo_Simplifie()                   #Obtention des donnes essentiel pour la comprehension des conditions meteo actuels.

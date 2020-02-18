@@ -70,7 +70,7 @@
         Label:
             id: Label_WIFIQ
             text_language: "fr"
-            text: "Wi-Fi = OK"
+            text: root.etat_co_wifi
 
             bold: False                                      #Parametre permettant de mettre en gras un label
             italic: False                                    #Permet de mettre en italique le contenue du label
@@ -94,16 +94,6 @@
             id: Label_Vitesse_U
             text_language: "fr"
             text: root.Vitesse_KMH
-
-            bold: False                                      #Parametre permettant de mettre en gras un label
-            italic: False                                    #Permet de mettre en italique le contenue du label
-            underline : False                                #Permet de souligner le contenue du label
-            color: (13,1,100,1)                                #Parametre permettant d'ajouter de la couleur a un label
-
-        Label:
-            id: Label_Vitesse_L
-            text_language: "fr"
-            text: "Vitesse Limite: 00 Km\h"
 
             bold: False                                      #Parametre permettant de mettre en gras un label
             italic: False                                    #Permet de mettre en italique le contenue du label
@@ -150,39 +140,71 @@
             keep_ratio: True                    #On indique si on souhaite garder le ration d'affiche d'origine de l'image
             keep_data: True                     #On indique si on souhaite que Kivy garde en memoire les informations concernant l'image concernee
 
-        Button:                                                   #Ce bouton va nous permettre de changer d'ecran Kivy
-            text:"Fonctionnalitee 2"                              #On indique un texte sur le bouton
-            on_press: root.manager.current = 'Fonctionnalitee 2'  #On indique la fonction du bouton, dans ce cas le changement d'ecran via le ScreenManager de Kivy
+        Button:                                                     #Ce bouton va nous permettre de changer d'ecran Kivy
+            text:"Meteo Complete"                                   #On indique un texte sur le bouton
+            on_press: root.manager.current = 'Meteo'                #On indique la fonction du bouton, dans ce cas le changement d'ecran via le ScreenManager de Kivy
+
+        Button:                                                                 #Ce bouton va nous permettre de changer d'ecran Kivy
+            text:"Loop_Video"                                            #On indique un texte sur le bouton
+            on_press: root.manager.current = 'Loop_Video'                #On indique la fonction du bouton, dans ce cas le changement d'ecran via le ScreenManager de Kivy
+
+
 #---------------------------------------------------------------------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------------------------------------------------------------------
-<Fonctionnalitee_1>
+<LaMeteo>
     BoxLayout:
         orientation: 'vertical'
 
         Label:                                                                          #WIDGET Permettant l'affichage d'un mot/phrase
-            id: Label_Chocolat                                                              #Identifiant permettant a ce label d'etre accessible via le code python
+            id: Label_Status_Climat                                                              #Identifiant permettant a ce label d'etre accessible via le code python
             text_language: "fr"                                                         #Ligne permettant de connaitre la langue utiliser dans ce label
-            text: "Chocolat"     #Valeur qui doit etre afficher a l'ecran
-            bold: False          #Parametre permettant de mettre en gras un label
-            italic: False        #Permet de mettre en italique le contenue du label
-            underline : False    #Permet de souligner le contenue du label
-            color: (13,1,1,1)    #Parametre permettant d'ajouter de la couleur a un label
+            text: root.status_climat        #Valeur qui doit etre afficher a l'ecran
+            bold: False                     #Parametre permettant de mettre en gras un label
+            italic: False                   #Permet de mettre en italique le contenue du label
+            underline : False               #Permet de souligner le contenue du label
+            color: (13,1,1,1)               #Parametre permettant d'ajouter de la couleur a un label
 
         Label:
-            id: Label_Noisette
+            id: Label_Clim_min
             text_language: "fr"
-            text: "Noisette"
+            text: root.climat_min
 
         Label:
-            id: Label_Lait
+            id: Label_Clim_now
             text_language: "fr"
-            text: "Lait"
+            text: root.climat_now
 
         Label:
-            id: Label_Vitamine
+            id: Label_Clim_max
             text_language: "fr"
-            text: "Vitamine"      
+            text: root.climat_max
+
+        Label:
+            id: Label_Vitesse_Vent
+            text_language: "fr"
+            text: root.vitesse_du_vent
+
+
+        Label:
+            id: Label_Volume_Neige
+            text_language: "fr"
+            text: root.volume_de_neige
+
+        Label:
+            id: Label_Volume_Pluie
+            text_language: "fr"
+            text: root.volume_de_pluie
+
+        Label:
+            id: Label_pourcentage_hum
+            text_language: "fr"
+            text: root.pourcentage_humidite
+
+        Label:
+            id: Label_couv_nuage
+            text_language: "fr"
+            text: root.couverture_de_nuage  
 
         Button:
             text:"Accueil"
@@ -190,32 +212,25 @@
 #---------------------------------------------------------------------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------------------------------------------------------------------
-<Fonctionnalitee_2>
+<Loop_Video>
   
-    BoxLayout:
-        orientation: 'vertical'
+    AnchorLayout:
+        Video:
+            source: root.BoucleVideo
+            state: "play"
+            options: {'eos': 'loop'}
 
-        Label:                                                          #WIDGET Permettant l'affichage d'un mot/phrase
-            id: Label_FONC2                                             #Identifiant permettant a ce label d'etre accessible via le code python
-            text_language: "fr"                                         #Ligne permettant de connaitre la langue utiliser dans ce label
-            text: "Deuxième Fonctionnalitee"                             #Valeur qui doit etre afficher a l'ecran
+        BoxLayout:
+            orientation: 'horizontal'
 
-            bold: False                                                 #Parametre permettant de mettre en gras un label
-            italic: False                                               #Permet de mettre en italique le contenue du label
-            underline : True                                            #Permet de souligner le contenue du label
-            color: (13,1,13,1)                                          #Parametre permettant d'ajouter de la couleur a un label
+            Label:                                                          #WIDGET Permettant l'affichage d'un mot/phrase
+                id: Label_FONC2                                             #Identifiant permettant a ce label d'etre accessible via le code python
+                text_language: "fr"                                         #Ligne permettant de connaitre la langue utiliser dans ce label
+                text: "Deuxième Fonctionnalitee du SWAGG SA MERE"           #Valeur qui doit etre afficher a l'ecran
 
-        TextInput:
-            id: Entree_texte                                 #Identifiant permettant a ce label d'etre accessible via le code python
-            text:"Mon Message"                               #Texte visible dans l'entree texte lors de son affichage
-            allow_copy: True                                 #Autorise le copier/coller
-            auto_indent: True                                #Kivy peut automatiquement indenter le contenue de l'entree
-            cursor_blink: True                               #Le curseur quand il sera place dans l'entree; il clignotera pour annoncer sa presence
-            keyboard_suggestions : True                      #Les clavier intelligent pourront presenter a l'utilisateur des mots a suggerer a entree
-
-        Button:
-            text:"Accueil"
-            on_press: root.manager.current = 'Accueil'
+            Button:
+                text:"Accueil"
+                on_press: root.manager.current = 'Accueil'
 
 #---------------------------------------------------------------------------------------------------------------------------------------
 

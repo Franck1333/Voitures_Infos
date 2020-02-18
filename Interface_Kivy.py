@@ -23,6 +23,7 @@ USERNAME = getpass.getuser()                                #On enregistre le No
 
 print("\n Bonjour/Bonsoir, ne pas faire fonctionner ce programme en utilisant les droits/commandes administrateur si l'utilisateur n'est pas l'Admin au quel cas le programme ne fonctionnera pas correctement. \n") #Information a lire dans la console
 sys.path.append("/home/"+USERNAME+"/Voitures_Infos/Services")  #On indique au systeme ou ce situe le repertoire "Services" dans l'Appareil
+sys.path.append("/home/"+USERNAME+"/Voitures_Infos/GPS")
 #print(USERNAME)                                            #Test debug
 
 from Infos_Hardware import CPU_usage                        #Obtention de l'utilisation du Processeur par le Systeme d'exploitation et ses programmes autour
@@ -33,7 +34,9 @@ from Infos_Hardware import MEM_info                         #Obtention de l'util
 from Services_Energies import Energies_Carburants_GPSoI
 from Vitesse_Utilisateur import la_Vitesse_GPS
 from Meteo import Meteo_Simplifie
+from Meteo import main_meteo
 from Etat_Signal_GPS import Etat_connection_GPS
+from Etat_Lien_WiFi import Affichage_Wifi_UI
 #---------------------------------------Project LIB---------------------------------------
 
 
@@ -41,6 +44,8 @@ from Etat_Signal_GPS import Etat_connection_GPS
 from kivy.app import App                                        #Utile a Kivy
 from kivy.uix.boxlayout import BoxLayout                        #Importation de la disposition BoxLayout
 from kivy.uix.anchorlayout import AnchorLayout                  #Importation de la disposition AnchorLayout
+from kivy.uix.gridlayout import GridLayout                      #Importation de la disposition GridLayout
+from kivy.uix.floatlayout import FloatLayout                    #Importation de la disposition FloatLayout
 
 from kivy.uix.widget import Widget                              #Importation des différents widget disponible
 from kivy.properties import StringProperty                      #Importation du StringProperty permettant de faire des variables dynamiques
@@ -71,6 +76,7 @@ class MaDisposition(BoxLayout, Screen):
 
     #--Informations Complementaires--
     etat_co_gps = StringProperty()
+    etat_co_wifi = StringProperty()
     Wifi_signal = StringProperty()       #Faire aussi le Service corrrespondant
     Vitesse_KMH = StringProperty()
     vitesse_limite = StringProperty()    #Idem ici, Concevoir le service correspondant
@@ -149,12 +155,14 @@ class MaDisposition(BoxLayout, Screen):
         #print("Infos GPS/WIFI/Vitesses/ ici")               #On Obtient un mot dans le carnet de correspondance.
         self.Vitesse_KMH = la_Vitesse_GPS()
         self.etat_co_gps = Etat_connection_GPS()
+        self.etat_co_wifi = Affichage_Wifi_UI()
                 
     def update_information_Complementaire(self, *args):
         #Mise à Jour des Informations reçues
         #print("Carnet Mise a Jour")                                #On met a jour le carnet de correspondance.
         self.Vitesse_KMH = la_Vitesse_GPS()
         self.etat_co_gps = Etat_connection_GPS()
+        self.etat_co_wifi = Affichage_Wifi_UI()
     #---------------------------------------------
 
     #---------------------------------------------
@@ -174,13 +182,50 @@ class MaDisposition(BoxLayout, Screen):
 #---------------------------------------------------------------------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------------------------------------------------------------------
-class Fonctionnalitee_1(BoxLayout, Screen):
-    print("Fonctionnalitee_1")   
+class LaMeteo(BoxLayout, Screen):
+    print("Classe Meteo")
+
+    #---Variables a Mettre a jour---
+    
+    #--Infos Meteo Complete--
+    status_climat = StringProperty()
+    climat_min = StringProperty()
+    climat_now = StringProperty()
+    climat_max = StringProperty()
+    vitesse_du_vent = StringProperty()
+    volume_de_neige = StringProperty()
+    volume_de_pluie = StringProperty()
+    pourcentage_humidite = StringProperty()
+    couverture_de_nuage = StringProperty()
+    #--Infos Meteo Complete--
+    
+    #---Variables a Mettre a jour---
+
+    #Voiture_PNG = "/home/"+USERNAME+"/Voitures_Infos/Services/images_defaut/Voiture.png" #Pour indiquer le chemin ou se trouve l'Image dans l'Ordinateur
+    
+    def __init__(self, **kwargs):
+        super(LaMeteo, self).__init__(**kwargs)   #On SuperCharge la classe
+        #---Elements a Mettre a jour---
+        #Exemple:
+        #Clock.schedule_once(self.methode)
+        #Clock.schedule_interval(self.methode, X Secondes d'interval de rafraichissement)
+        Clock.schedule_once(self.La_meteo_complete)
+        Clock.schedule_interval(self.La_meteo_complete,3613)
+        #---Elements a Mettre a jour---
+
+    #---------------------------------------------
+    def La_meteo_complete(self, *args):
+        #Recuperation complete de la meteo
+        self.status_climat,self.climat_min,self.climat_now,self.climat_max,self.vitesse_du_vent,self.volume_de_neige,self.volume_de_pluie,self.pourcentage_humidite,self.couverture_de_nuage = main_meteo()        
+    #---------------------------------------------
+
 #---------------------------------------------------------------------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------------------------------------------------------------------
-class Fonctionnalitee_2(BoxLayout, Screen):
-    print("Fonctionnalitee_2")                
+class Loop_Video(AnchorLayout,GridLayout, Screen):
+    print("Loop_Video")
+    BoucleVideo = "/home/"+USERNAME+"/Voitures_Infos/Services/videos_defaut/bf3_loop.avi" #Pour indiquer le chemin ou se trouve l'Image dans l'Ordinateur
+
 #---------------------------------------------------------------------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------------------------------------------------------------------
@@ -193,9 +238,9 @@ class Fonctionnalitee_3(BoxLayout, Screen):
 #Dans cette partie du code, on indique les differents 'ecrans' ou fenetres que dispose ce logiciel sous Kivy
 sm = ScreenManager()
 sm.add_widget(MaDisposition(name ='Accueil'))
-sm.add_widget(Fonctionnalitee_1(name='Fonctionnalitee 1'))
-sm.add_widget(Fonctionnalitee_2(name='Fonctionnalitee 2'))
-sm.add_widget(Fonctionnalitee_3(name='Fonctionnalitee 3'))
+sm.add_widget(LaMeteo(name='Meteo'))
+sm.add_widget(Loop_Video(name='Loop_Video'))
+sm.add_widget(Fonctionnalitee_3(name='Fonctionnalitee_3'))
 #---------------------------------------------Creation du Screen Manager---------------------------------------------
       
 class Voitures_InfosApp(App):
