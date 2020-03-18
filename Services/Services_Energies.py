@@ -62,7 +62,8 @@ def Energies_Carburants_GPSoI():
         print("prix_e10 : "+ str(prix_e10)+" €/L")
         print("prix_diesel : "+ str(prix_diesel)+" €/L")
         print("prix_gpl : "+str(prix_gpl)+" €/L")
-
+        
+        Affichage_Lieux = "Prix carburants sur "+Ville+","+str(postal)+": " 
         Affichage_prix_sp_98 = "SP-98: "+str(prix_sp_98)+" €/L"
         Affichage_prix_e10 = "E10: "+str(prix_e10)+" €/L"
         Affichage_prix_diesel = "Diesel: "+str(prix_diesel)+" €/L"

@@ -37,6 +37,7 @@ from Meteo import Meteo_Simplifie
 from Meteo import main_meteo
 from Etat_Signal_GPS import Etat_connection_GPS
 from Etat_Lien_WiFi import Affichage_Wifi_UI
+from Boussole import Affichage_boussole
 #---------------------------------------Project LIB---------------------------------------
 
 
@@ -55,7 +56,6 @@ from kivy.uix.screenmanager import ScreenManager, Screen        #Importation de 
 from kivy.uix.popup import Popup                                #Importation des Popup de Kivy
 from kivy.uix.label import Label                                #Importation des Label de Kivy
 from kivy.uix.button import Button                              #Importation des Boutton de Kivy
-
 #---------------------------------------Kivy LIB---------------------------------------
 #---------------------------------------------------------------------------------------------------------------------------------------
 #Builder.load_string(""" """)           #Saisie indiquant la disposition des elements visuels
@@ -75,6 +75,7 @@ class MaDisposition(BoxLayout, Screen):
     #--Informations Materiels--
 
     #--Informations Complementaires--
+    boussole_num = StringProperty()
     etat_co_gps = StringProperty()
     etat_co_wifi = StringProperty()
     Wifi_signal = StringProperty()       #Faire aussi le Service corrrespondant
@@ -105,9 +106,9 @@ class MaDisposition(BoxLayout, Screen):
         #Exemple:
         #Clock.schedule_once(self.methode)
         #Clock.schedule_interval(self.methode, X Secondes d'interval de rafraichissement)
-        Clock.schedule_interval(self.temps_actuel_update,1)
-        Clock.schedule_interval(self.update_information_Materiel,1)                     #On indique a Kivy quand Commencer/Re-commencer l'execution d'une methode
-        Clock.schedule_interval(self.update_information_Complementaire, 1)
+        Clock.schedule_interval(self.temps_actuel_update,5)
+        Clock.schedule_interval(self.update_information_Materiel,5)                     #On indique a Kivy quand Commencer/Re-commencer l'execution d'une methode
+        Clock.schedule_interval(self.update_information_Complementaire,1)
 
         Clock.schedule_once(self.La_meteo_simplifie)
         Clock.schedule_interval(self.La_meteo_simplifie,3613)
@@ -161,6 +162,7 @@ class MaDisposition(BoxLayout, Screen):
         #Mise à Jour des Informations reçues
         #print("Carnet Mise a Jour")                                #On met a jour le carnet de correspondance.
         self.Vitesse_KMH = la_Vitesse_GPS()
+        self.boussole_num = Affichage_boussole()
         self.etat_co_gps = Etat_connection_GPS()
         self.etat_co_wifi = Affichage_Wifi_UI()
     #---------------------------------------------
@@ -222,10 +224,15 @@ class LaMeteo(BoxLayout, Screen):
 #---------------------------------------------------------------------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------------------------------------------------------------------
-class Loop_Video(AnchorLayout,GridLayout, Screen):
-    print("Loop_Video")
-    BoucleVideo = "/home/"+USERNAME+"/Voitures_Infos/Services/videos_defaut/bf3_loop.avi" #Pour indiquer le chemin ou se trouve l'Image dans l'Ordinateur
+class Play_Media(AnchorLayout,GridLayout, Screen):
+    print("Play_Media")
+    #BoucleVideo = "/home/"+USERNAME+"/Voitures_Infos/Services/videos_defaut/bf3_loop.avi" #Pour indiquer le chemin ou se trouve l'Image dans l'Ordinateur
+    #Utiliser les fonctions videos avec Kivy sur RPI ou ordinateur lent a pour consequence une leuteur extreme du systeme donc du programme; à eviter si possible.
+    #J'aimerais essayer de mettre en place du Multi-processing mais force de constater que ce n'est pas evident a mettre en place.
 
+    #Utiliser les fonctions d'images est plus raisonnnable dans tous les cas de figures mais affiches moins de dynamismes et de vivant au programme Kivy.
+    #Par consequent on peut utiliser les fonctions native de kivy pour ajouter du dynamisme au sein du programme avec les transitions par exemple.
+    FondImage = "/home/"+USERNAME+"/Voitures_Infos/Services/images_defaut/stars_up.jpg" #Pour indiquer le chemin ou se trouve l'Image dans l'Ordinateur 
 #---------------------------------------------------------------------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------------------------------------------------------------------
@@ -239,7 +246,7 @@ class Fonctionnalitee_3(BoxLayout, Screen):
 sm = ScreenManager()
 sm.add_widget(MaDisposition(name ='Accueil'))
 sm.add_widget(LaMeteo(name='Meteo'))
-sm.add_widget(Loop_Video(name='Loop_Video'))
+sm.add_widget(Play_Media(name='Play_Media'))
 sm.add_widget(Fonctionnalitee_3(name='Fonctionnalitee_3'))
 #---------------------------------------------Creation du Screen Manager---------------------------------------------
       

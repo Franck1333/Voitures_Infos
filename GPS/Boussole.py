@@ -26,5 +26,13 @@ def boussole():
     print(str(latitude) +" "+ latitude_Hemisphere +" "+ str(Longitude) +" "+ Longitude_Hemisphere)      #Affichage dans la console des informations utiles    
     return latitude,latitude_Hemisphere,Longitude,Longitude_Hemisphere                                  #Retourne toutes les valeurs obtenues
 
+def Affichage_boussole():
+    try:
+        latitude,latitude_Hemisphere,Longitude,Longitude_Hemisphere  = boussole()
+        packed_boussole = str(latitude)+" "+latitude_Hemisphere +" "+str(Longitude)+" "+Longitude_Hemisphere
+    except:
+        packed_boussole = "Erreur GPS"
+    return packed_boussole
+
 if __name__ == "__main__":
     boussole()      #Programme principal de la Boussole Numérique (TEXTUELLE)

@@ -79,7 +79,17 @@
 
     BoxLayout:
         orientation: 'vertical'
-        
+
+        Label:
+            id: Label_Boussole_num
+            text_language: "fr"
+            text: root.boussole_num
+
+            bold: False                                      #Parametre permettant de mettre en gras un label
+            italic: False                                    #Permet de mettre en italique le contenue du label
+            underline : False                                #Permet de souligner le contenue du label
+            color: (173,1,1,1)                                #Parametre permettant d'ajouter de la couleur a un label
+
         Label:
             id: Label_METEOS
             text_language: "fr"
@@ -145,8 +155,8 @@
             on_press: root.manager.current = 'Meteo'                #On indique la fonction du bouton, dans ce cas le changement d'ecran via le ScreenManager de Kivy
 
         Button:                                                                 #Ce bouton va nous permettre de changer d'ecran Kivy
-            text:"Loop_Video"                                            #On indique un texte sur le bouton
-            on_press: root.manager.current = 'Loop_Video'                #On indique la fonction du bouton, dans ce cas le changement d'ecran via le ScreenManager de Kivy
+            text:"Play_Media"                                            #On indique un texte sur le bouton
+            on_press: root.manager.current = 'Play_Media'                #On indique la fonction du bouton, dans ce cas le changement d'ecran via le ScreenManager de Kivy
 
 
 #---------------------------------------------------------------------------------------------------------------------------------------
@@ -212,26 +222,29 @@
 #---------------------------------------------------------------------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------------------------------------------------------------------
-<Loop_Video>
-  
-    AnchorLayout:
-        Video:
-            source: root.BoucleVideo
-            state: "play"
-            options: {'eos': 'loop'}
+<Play_Media>
+    BoxLayout:
+        orientation: 'vertical'
+        Label:                                                          #WIDGET Permettant l'affichage d'un mot/phrase
+            id: Label_FONC2                                             #Identifiant permettant a ce label d'etre accessible via le code python
+            text_language: "fr"                                         #Ligne permettant de connaitre la langue utiliser dans ce label
+            text: "Deuxième Fonctionnalitee du SWAGG SA MERE"           #Valeur qui doit etre afficher a l'ecran
 
-        BoxLayout:
-            orientation: 'horizontal'
+        Button:
+            text:"Accueil"
+            on_press: root.manager.current = 'Accueil'
 
-            Label:                                                          #WIDGET Permettant l'affichage d'un mot/phrase
-                id: Label_FONC2                                             #Identifiant permettant a ce label d'etre accessible via le code python
-                text_language: "fr"                                         #Ligne permettant de connaitre la langue utiliser dans ce label
-                text: "Deuxième Fonctionnalitee du SWAGG SA MERE"           #Valeur qui doit etre afficher a l'ecran
+        Button:
+            text:"0123"
 
-            Button:
-                text:"Accueil"
-                on_press: root.manager.current = 'Accueil'
-
+#------------------------------------
+    #AnchorLayout:
+        #Video:
+        #    source: root.BoucleVideo
+        #    state: "play"
+        #    options: {'eos': 'loop'}
+        #Image:
+        #    source: root.FondImage
 #---------------------------------------------------------------------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------------------------------------------------------------------        
