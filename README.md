@@ -26,6 +26,13 @@ A Display.
 <p>Be sure to be Up to date with your OS and Python3 environement with this command line:</p>
 <pre><code>- sudo apt-get update &amp;&amp; sudo apt-get upgrade &amp;&amp; sudo pip3 install --upgrade pip
 </code></pre>
+
+### This commmand line must be executed anyway to install the Virtual Keyboard  *Florence* : 
+#### The  *Florence's* Software :
+```
+  sudo apt-get install florence && sudo apt-get install at-spi2-core
+```
+
 <h3 id="downloadinginstalling">Downloading/Installing</h3>
 <p>To get and downloaded the files, use this line :</p>
 <pre><code>git clone https://github.com/Franck1333/Voitures_Infos.git
