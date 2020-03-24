@@ -68,32 +68,9 @@ class MaDisposition(BoxLayout, Screen):
     Time_Horloge = StringProperty()     #Quand cette variable changera, toute les elements comportant cette variable se mettront a jour lorsque sa valeurs changera car elle est specifie 'StringProperty'
     #--Horloge--
 
-    #--Informations Materiels--
-    UtilisationCPU = StringProperty()   #Quand cette variable changera, toute les elements comportant cette variable se mettront a jour lorsque sa valeurs changera car elle est specifie 'StringProperty'
-    MemoireUtilise = StringProperty()   #Quand cette variable changera, toute les elements comportant cette variable se mettront a jour lorsque sa valeurs changera car elle est specifie 'StringProperty'
-    CPUtemp = StringProperty()          #Quand cette variable changera, toute les elements comportant cette variable se mettront a jour lorsque sa valeurs changera car elle est specifie 'StringProperty'
-    #--Informations Materiels--
-
-    #--Informations Complementaires--
-    boussole_num = StringProperty()
-    etat_co_gps = StringProperty()
-    etat_co_wifi = StringProperty()
-    Wifi_signal = StringProperty()       #Faire aussi le Service corrrespondant
-    Vitesse_KMH = StringProperty()
-    vitesse_limite = StringProperty()    #Idem ici, Concevoir le service correspondant
-    #--Informations Complementaires--
-
     #--Infos Meteo Simplifie--
     meteo_simplifie = StringProperty()
     #--Infos Meteo Simplifie--
-    
-    #--Infos Energies--
-    lieux_carbu = StringProperty()
-    prix_sp_98  = StringProperty()
-    prix_e10  = StringProperty()
-    prix_diesel  = StringProperty()
-    prix_gpl  = StringProperty()   
-    #--Infos Energies--
 
     #---Variables a Mettre a jour---
 
@@ -106,16 +83,11 @@ class MaDisposition(BoxLayout, Screen):
         #Exemple:
         #Clock.schedule_once(self.methode)
         #Clock.schedule_interval(self.methode, X Secondes d'interval de rafraichissement)
-        Clock.schedule_interval(self.temps_actuel_update,5)
-        Clock.schedule_interval(self.update_information_Materiel,5)                     #On indique a Kivy quand Commencer/Re-commencer l'execution d'une methode
-        Clock.schedule_interval(self.update_information_Complementaire,1)
-
+        Clock.schedule_interval(self.temps_actuel_update,10)
+        
         Clock.schedule_once(self.La_meteo_simplifie)
         Clock.schedule_interval(self.La_meteo_simplifie,3613)
-        
-        Clock.schedule_once(self.Prix_des_Carbu)
         #---Elements a Mettre a jour---
-
     
     #---------------------------------------------
     def temps_actuel(self):   
@@ -131,41 +103,88 @@ class MaDisposition(BoxLayout, Screen):
     #---------------------------------------------
 
     #---------------------------------------------
-    def information_Materiel(self):
-        #Obtention des Informations Materiel de l'Ordinateur
-        #--        
+    def La_meteo_simplifie(self, *args):
+        #Affichage simplifiee de la meteo
+        self.meteo_simplifie = Meteo_Simplifie()        
+    #---------------------------------------------
+    
+#---------------------------------------------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------------------------------------------
+class Infos_Systemes(BoxLayout, Screen):
+    print("Classe Infos Systèmes")
+
+    #---Variables a Mettre a jour---
+    #--Informations Materiels--
+    UtilisationCPU = StringProperty()   
+    MemoireUtilise = StringProperty()   
+    CPUtemp = StringProperty()
+    etat_co_gps = StringProperty()
+    etat_co_wifi = StringProperty()
+    #--Informations Materiels--
+    #---Variables a Mettre a jour---
+
+    def __init__(self, **kwargs):
+        super(Infos_Systemes, self).__init__(**kwargs)   #On SuperCharge la classe
+        #---Elements a Mettre a jour---
+        Clock.schedule_interval(self.information_Materiel,5)                        #On indique a Kivy quand Commencer/Re-commencer l'execution d'une methode
+        #---Elements a Mettre a jour---
+
+    #---------------------------------------------
+    def information_Materiel(self, *args):
+        #Obtention des Informations Materiel de l'Ordinateur      
         self.UtilisationCPU = CPU_usage()                                           #Obtention du Niveau d'utilisation du Processeur.
         self.MemoireUtilise = MEM_info()                                            #Obtention d'information par rapport à la Memoire Vive.
         self.CPUtemp = CPU_temp()                                                   #Obtention de la Temperature du Package Processeur/GPU.
-        #mesure_voltage,memoire_processeur,memoire_gpu  = SoC_info()                #Obtention d'information par rapport au Couple CPU/GPU.
-        #--
-
-    def update_information_Materiel(self, *args):
-        #Mise a Jour des Informations a Propos du Materiel
-        #--        
-        self.UtilisationCPU = CPU_usage()                                           #Obtention du Niveau d'utilisation du Processeur.
-        self.MemoireUtilise = MEM_info()                                            #Obtention d'information par rapport à la Memoire Vive.
-        self.CPUtemp = CPU_temp()                                                   #Obtention de la Temperature du Package Processeur/GPU.
-        #--
-    #---------------------------------------------
-
-    #---------------------------------------------
-    def information_Complementaire(self):
-        #Recuperation des Informations
-        #Infos: GPS,WIFI et infos vitesses
-        #print("Infos GPS/WIFI/Vitesses/ ici")               #On Obtient un mot dans le carnet de correspondance.
-        self.Vitesse_KMH = la_Vitesse_GPS()
         self.etat_co_gps = Etat_connection_GPS()
         self.etat_co_wifi = Affichage_Wifi_UI()
-                
-    def update_information_Complementaire(self, *args):
-        #Mise à Jour des Informations reçues
-        #print("Carnet Mise a Jour")                                #On met a jour le carnet de correspondance.
+    #---------------------------------------------
+#---------------------------------------------------------------------------------------------------------------------------------------
+        
+#---------------------------------------------------------------------------------------------------------------------------------------
+class Infos_GPS(BoxLayout, Screen):
+    print("Classe Infos GPS")
+
+    #---Variables a Mettre a jour---
+    #--Informations Complementaires--
+    boussole_num = StringProperty()
+    Vitesse_KMH = StringProperty()
+    #--Informations Complementaires--
+    #---Variables a Mettre a jour---
+
+    def __init__(self, **kwargs):
+        super(Infos_GPS, self).__init__(**kwargs)   #On SuperCharge la classe
+        #---Elements a Mettre a jour---
+        Clock.schedule_interval(self.information_Complementaire,1)
+        #---Elements a Mettre a jour---
+
+    #---------------------------------------------
+    def information_Complementaire(self, *args):
+        #Recuperation des Informations
         self.Vitesse_KMH = la_Vitesse_GPS()
         self.boussole_num = Affichage_boussole()
-        self.etat_co_gps = Etat_connection_GPS()
-        self.etat_co_wifi = Affichage_Wifi_UI()
     #---------------------------------------------
+#---------------------------------------------------------------------------------------------------------------------------------------
+
+#---------------------------------------------------------------------------------------------------------------------------------------
+class Prix_du_Carburant(BoxLayout, Screen):
+    print("Classe pour le Prix du Carburant")
+    
+    #---Variables a Mettre a jour---        
+    #--Infos Energies--
+    lieux_carbu = StringProperty()
+    prix_sp_98  = StringProperty()
+    prix_e10  = StringProperty()
+    prix_diesel  = StringProperty()
+    prix_gpl  = StringProperty()   
+    #--Infos Energies--
+    #---Variables a Mettre a jour---
+
+    def __init__(self, **kwargs):
+        super(Prix_du_Carburant, self).__init__(**kwargs)   #On SuperCharge la classe
+
+        #---Elements a Mettre a jour---       
+        Clock.schedule_once(self.Prix_des_Carbu)
+        #---Elements a Mettre a jour---
 
     #---------------------------------------------
     def Prix_des_Carbu(self, *args):
@@ -174,15 +193,6 @@ class MaDisposition(BoxLayout, Screen):
         self.lieux_carbu,self.prix_sp_98,self.prix_e10,self.prix_diesel,self.prix_gpl = Energies_Carburants_GPSoI()
         #--
     #---------------------------------------------
-
-    #---------------------------------------------
-    def La_meteo_simplifie(self, *args):
-        #Affichage simplifiee de la meteo
-        self.meteo_simplifie = Meteo_Simplifie()        
-    #---------------------------------------------
-    
-#---------------------------------------------------------------------------------------------------------------------------------------
-
 #---------------------------------------------------------------------------------------------------------------------------------------
 class LaMeteo(BoxLayout, Screen):
     print("Classe Meteo")
@@ -245,6 +255,9 @@ class Fonctionnalitee_3(BoxLayout, Screen):
 #Dans cette partie du code, on indique les differents 'ecrans' ou fenetres que dispose ce logiciel sous Kivy
 sm = ScreenManager()
 sm.add_widget(MaDisposition(name ='Accueil'))
+sm.add_widget(Infos_Systemes(name='Infos_Systemes'))
+sm.add_widget(Infos_GPS(name='Infos_GPS'))
+sm.add_widget(Prix_du_Carburant(name='Prix_du_Carburant'))
 sm.add_widget(LaMeteo(name='Meteo'))
 sm.add_widget(Play_Media(name='Play_Media'))
 sm.add_widget(Fonctionnalitee_3(name='Fonctionnalitee_3'))

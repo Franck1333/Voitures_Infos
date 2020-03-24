@@ -3,7 +3,6 @@
 #Selection de la couleur par H.S.V
 #---------------------------------------------------------------------------------------------------------------------------------------
 <MaDisposition>
-
     BoxLayout:
         orientation: 'vertical'
         
@@ -16,6 +15,75 @@
             italic: False                                    #Permet de mettre en italique le contenue du label
             underline : False                                #Permet de souligner le contenue du label
             color: (73,1,1,1)                                #Parametre permettant d'ajouter de la couleur a un label
+
+        Label:
+            id: Label_Bienvenue
+            text_language: "fr"
+            text: "Bienvenue à Bord!"
+
+            bold: True                                       #Parametre permettant de mettre en gras un label
+            italic: False                                    #Permet de mettre en italique le contenue du label
+            underline : True                                 #Permet de souligner le contenue du label
+            color: (173,1,1,1)                               #Parametre permettant d'ajouter de la couleur a un label
+
+
+        Label:
+            id: Label_METEOS
+            text_language: "fr"
+            text: root.meteo_simplifie
+
+            bold: False                                      #Parametre permettant de mettre en gras un label
+            italic: False                                    #Permet de mettre en italique le contenue du label
+            underline : False                                #Permet de souligner le contenue du label
+            color: (173,1,1,1)                               #Parametre permettant d'ajouter de la couleur a un label
+            
+        Label:
+            id: Label_Bienvenue
+            text_language: "fr"
+            text: "->->Emplacement des Notifications<-<-"
+
+            bold: False                                       #Parametre permettant de mettre en gras un label
+            italic: True                                      #Permet de mettre en italique le contenue du label
+            underline : False                                 #Permet de souligner le contenue du label
+            color: (50,1,1,1)                                #Parametre permettant d'ajouter de la couleur a un label
+
+    BoxLayout:
+        orientation: 'vertical'
+        
+        Image:                                  #On Indique l'utilisation d'image 
+            id: IMG_Voiture_PNG                 #Un identifiant pour le widget
+            source: root.Voiture_PNG            #On indique aussi le chemin que doit utiliser Kivy pour retrouver l'image, ici denominer par une variable string dans le programme Principal
+            keep_ratio: True                    #On indique si on souhaite garder le ration d'affiche d'origine de l'image
+            keep_data: True                     #On indique si on souhaite que Kivy garde en memoire les informations concernant l'image concernee
+
+        Button:                                                          #Ce bouton va nous permettre de changer d'ecran Kivy
+            text:"Infos Systemes"                                        #On indique un texte sur le bouton
+            on_press: root.manager.current = 'Infos_Systemes'         #On indique la fonction du bouton, dans ce cas le changement d'ecran via le ScreenManager de Kivy
+
+        Button:                                                          #Ce bouton va nous permettre de changer d'ecran Kivy
+            text:"Infos GPS"                                             #On indique un texte sur le bouton
+            on_press: root.manager.current = 'Infos_GPS'         #On indique la fonction du bouton, dans ce cas le changement d'ecran via le ScreenManager de Kivy
+
+        Button:                                                          #Ce bouton va nous permettre de changer d'ecran Kivy
+            text:"Prix du Carburant"                                     #On indique un texte sur le bouton
+            on_press: root.manager.current = 'Prix_du_Carburant'         #On indique la fonction du bouton, dans ce cas le changement d'ecran via le ScreenManager de Kivy
+
+
+        Button:                                                          #Ce bouton va nous permettre de changer d'ecran Kivy
+            text:"Meteo Complete"                                        #On indique un texte sur le bouton
+            on_press: root.manager.current = 'Meteo'                     #On indique la fonction du bouton, dans ce cas le changement d'ecran via le ScreenManager de Kivy
+
+        Button:                                                          #Ce bouton va nous permettre de changer d'ecran Kivy
+            text:"Play_Media"                                            #On indique un texte sur le bouton
+            on_press: root.manager.current = 'Play_Media'                #On indique la fonction du bouton, dans ce cas le changement d'ecran via le ScreenManager de Kivy
+
+
+#---------------------------------------------------------------------------------------------------------------------------------------
+
+#---------------------------------------------------------------------------------------------------------------------------------------
+<Infos_Systemes>
+    BoxLayout:
+        orientation: 'vertical'
 
         Label:
             id: Label_UtilisationCPU
@@ -76,10 +144,17 @@
             italic: False                                    #Permet de mettre en italique le contenue du label
             underline : False                                #Permet de souligner le contenue du label
             color: (73,1,1,1)                                #Parametre permettant d'ajouter de la couleur a un label
+            
+        Button:
+            text:"Accueil"
+            on_press: root.manager.current = 'Accueil'
+#---------------------------------------------------------------------------------------------------------------------------------------
 
+#---------------------------------------------------------------------------------------------------------------------------------------
+<Infos_GPS>
     BoxLayout:
         orientation: 'vertical'
-
+        
         Label:
             id: Label_Boussole_num
             text_language: "fr"
@@ -88,17 +163,7 @@
             bold: False                                      #Parametre permettant de mettre en gras un label
             italic: False                                    #Permet de mettre en italique le contenue du label
             underline : False                                #Permet de souligner le contenue du label
-            color: (173,1,1,1)                                #Parametre permettant d'ajouter de la couleur a un label
-
-        Label:
-            id: Label_METEOS
-            text_language: "fr"
-            text: root.meteo_simplifie
-
-            bold: False                                      #Parametre permettant de mettre en gras un label
-            italic: False                                    #Permet de mettre en italique le contenue du label
-            underline : False                                #Permet de souligner le contenue du label
-            color: (173,1,1,1)                                #Parametre permettant d'ajouter de la couleur a un label
+            color: (173,1,1,1)                               #Parametre permettant d'ajouter de la couleur a un label
 
         Label:
             id: Label_Vitesse_U
@@ -108,7 +173,17 @@
             bold: False                                      #Parametre permettant de mettre en gras un label
             italic: False                                    #Permet de mettre en italique le contenue du label
             underline : False                                #Permet de souligner le contenue du label
-            color: (13,1,100,1)                                #Parametre permettant d'ajouter de la couleur a un label
+            color: (13,1,100,1)                              #Parametre permettant d'ajouter de la couleur a un label
+       
+        Button:
+            text:"Accueil"
+            on_press: root.manager.current = 'Accueil'
+#---------------------------------------------------------------------------------------------------------------------------------------
+
+#---------------------------------------------------------------------------------------------------------------------------------------
+<Prix_du_Carburant>
+    BoxLayout:
+        orientation: 'vertical'
 
         Label:
             id: Label_PrixLieux_carbu
@@ -140,25 +215,10 @@
             text_language: "fr"
             text: root.prix_gpl
             color: (28,68,100,1)                                #Parametre permettant d'ajouter de la couleur a un label
-
-    BoxLayout:
-        orientation: 'vertical'
         
-        Image:                                  #On Indique l'utilisation d'image 
-            id: IMG_Voiture_PNG                 #Un identifiant pour le widget
-            source: root.Voiture_PNG            #On indique aussi le chemin que doit utiliser Kivy pour retrouver l'image, ici denominer par une variable string dans le programme Principal
-            keep_ratio: True                    #On indique si on souhaite garder le ration d'affiche d'origine de l'image
-            keep_data: True                     #On indique si on souhaite que Kivy garde en memoire les informations concernant l'image concernee
-
-        Button:                                                     #Ce bouton va nous permettre de changer d'ecran Kivy
-            text:"Meteo Complete"                                   #On indique un texte sur le bouton
-            on_press: root.manager.current = 'Meteo'                #On indique la fonction du bouton, dans ce cas le changement d'ecran via le ScreenManager de Kivy
-
-        Button:                                                                 #Ce bouton va nous permettre de changer d'ecran Kivy
-            text:"Play_Media"                                            #On indique un texte sur le bouton
-            on_press: root.manager.current = 'Play_Media'                #On indique la fonction du bouton, dans ce cas le changement d'ecran via le ScreenManager de Kivy
-
-
+        Button:
+            text:"Accueil"
+            on_press: root.manager.current = 'Accueil'        
 #---------------------------------------------------------------------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------------------------------------------------------------------
