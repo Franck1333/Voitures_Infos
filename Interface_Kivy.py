@@ -38,6 +38,7 @@ from Meteo import main_meteo
 from Etat_Signal_GPS import Etat_connection_GPS
 from Etat_Lien_WiFi import Affichage_Wifi_UI
 from Boussole import Affichage_boussole
+from emergency_number import numero_urgence
 #---------------------------------------Project LIB---------------------------------------
 
 
@@ -145,15 +146,22 @@ class Infos_GPS(BoxLayout, Screen):
     print("Classe Infos GPS")
 
     #---Variables a Mettre a jour---
+    
     #--Informations Complementaires--
     boussole_num = StringProperty()
     Vitesse_KMH = StringProperty()
     #--Informations Complementaires--
+
+    #--Numeros d'Urgences--
+    num_urg = StringProperty()
+    #--Numeros d'Urgence--
+    
     #---Variables a Mettre a jour---
 
     def __init__(self, **kwargs):
         super(Infos_GPS, self).__init__(**kwargs)   #On SuperCharge la classe
         #---Elements a Mettre a jour---
+        Clock.schedule_once(self.numeros_urgences)
         Clock.schedule_interval(self.information_Complementaire,1)
         #---Elements a Mettre a jour---
 
@@ -163,6 +171,13 @@ class Infos_GPS(BoxLayout, Screen):
         self.Vitesse_KMH = la_Vitesse_GPS()
         self.boussole_num = Affichage_boussole()
     #---------------------------------------------
+
+    #---------------------------------------------
+    def numeros_urgences(self, *args):
+        #Recuperation des Informations
+        self.num_urg = numero_urgence()
+    #---------------------------------------------
+    
 #---------------------------------------------------------------------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------------------------------------------------------------------
@@ -242,7 +257,7 @@ class Play_Media(AnchorLayout,GridLayout, Screen):
 
     #Utiliser les fonctions d'images est plus raisonnnable dans tous les cas de figures mais affiches moins de dynamismes et de vivant au programme Kivy.
     #Par consequent on peut utiliser les fonctions native de kivy pour ajouter du dynamisme au sein du programme avec les transitions par exemple.
-    FondImage = "/home/"+USERNAME+"/Voitures_Infos/Services/images_defaut/stars_up.jpg" #Pour indiquer le chemin ou se trouve l'Image dans l'Ordinateur 
+    FondImage = "/home/"+USERNAME+"/Voitures_Infos/Services/images_defaut/cm_champ2.jpg" #Pour indiquer le chemin ou se trouve l'Image dans l'Ordinateur 
 #---------------------------------------------------------------------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------------------------------------------------------------------

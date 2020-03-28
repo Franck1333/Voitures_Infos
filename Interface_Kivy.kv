@@ -156,6 +156,16 @@
         orientation: 'vertical'
         
         Label:
+            id: Label_num_urg
+            text_language: "fr"
+            text: root.num_urg
+
+            bold: False                                      #Parametre permettant de mettre en gras un label
+            italic: True                                     #Permet de mettre en italique le contenue du label
+            underline : False                                #Permet de souligner le contenue du label
+            color: (28,68,150,1)                               #Parametre permettant d'ajouter de la couleur a un label
+        
+        Label:
             id: Label_Boussole_num
             text_language: "fr"
             text: root.boussole_num
@@ -283,28 +293,20 @@
 
 #---------------------------------------------------------------------------------------------------------------------------------------
 <Play_Media>
-    BoxLayout:
-        orientation: 'vertical'
-        Label:                                                          #WIDGET Permettant l'affichage d'un mot/phrase
-            id: Label_FONC2                                             #Identifiant permettant a ce label d'etre accessible via le code python
-            text_language: "fr"                                         #Ligne permettant de connaitre la langue utiliser dans ce label
-            text: "Deuxième Fonctionnalitee du SWAGG SA MERE"           #Valeur qui doit etre afficher a l'ecran
+    AnchorLayout:
+        Image:
+            source: root.FondImage
 
-        Button:
-            text:"Accueil"
-            on_press: root.manager.current = 'Accueil'
+        BoxLayout:
+            orientation: 'vertical'
+            Label:                                                          #WIDGET Permettant l'affichage d'un mot/phrase
+                id: Label_FONC2                                             #Identifiant permettant a ce label d'etre accessible via le code python
+                text_language: "fr"                                         #Ligne permettant de connaitre la langue utiliser dans ce label
+                text: "Deuxième Fonctionnalitee du SWAGG SA MERE"           #Valeur qui doit etre afficher a l'ecran
 
-        Button:
-            text:"0123"
-
-#------------------------------------
-    #AnchorLayout:
-        #Video:
-        #    source: root.BoucleVideo
-        #    state: "play"
-        #    options: {'eos': 'loop'}
-        #Image:
-        #    source: root.FondImage
+            Button:
+                text:"Accueil"
+                on_press: root.manager.current = 'Accueil'
 #---------------------------------------------------------------------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------------------------------------------------------------------        

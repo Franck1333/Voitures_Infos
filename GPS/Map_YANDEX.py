@@ -73,6 +73,6 @@ def getMapInterface():
     #---interface---#
 
 if __name__ == "__main__":
-    getMap()
+    #getMap()
     getMap_ISS()
     getMapInterface()   
