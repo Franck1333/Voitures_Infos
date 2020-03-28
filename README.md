@@ -5,7 +5,7 @@
 
 <h1 id="voitures_infos">Voitures_Infos</h1>
 <p>This software got you some interesting infos when you go somwhere.</p>
-<p><a href="https://i.ibb.co/KV4QgVQ/Home-VI.png"><img src="https://i.ibb.co/KV4QgVQ/Home-VI.png" alt="Image"></a></p>
+<p><a href="https://i.ibb.co/8DNC51m/Annotation-2020-03-28-204223.png"><img src="https://i.ibb.co/8DNC51m/Annotation-2020-03-28-204223.png" alt="Image"></a></p>
 <h2 id="getting-started">Getting Started</h2>
 <p>To get a copy of the project, you can go on the GitHub’s webpage of the project and click on the green button to download as a .ZIP file. However, if you’re using a prompt console on an Unix machine use this line :</p>
 <pre><code>git clone https://github.com/Franck1333/Voitures_Infos.git
