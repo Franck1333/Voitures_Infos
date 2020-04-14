@@ -1,7 +1,6 @@
----
+*This project is a pretext for me to get more knowledge about UIs and packaging programs*
 
-
----
+*The doc is not up to date, please wait...*
 
 <h1 id="voitures_infos">Voitures_Infos</h1>
 <p>This software got you some interesting infos when you go somwhere.</p>
