@@ -52,15 +52,10 @@
 				});
 
 				socket.on('my_horloge', function(msg){
-					console.log("Test debug Horloge")
-					console.log(msg);
+					console.log("Test debug Horloge: " + msg);
+					$('#system_time').append(msg);
     			});
-
-				//socket.on('my_horloge', function(msg) {
-        		//$('#system_time').replace(msg.data);
-				//console.log(msg.data);
-   				//});
-
+				
 			});
 			</script>
 			
