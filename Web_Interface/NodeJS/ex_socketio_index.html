@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!-- AIDE: https://stackoverflow.com/questions/54001368/err-connection-refused-from-socket-io -->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Socket.io</title>
+    </head>
+ 
+    <body>
+        <h1>Communication avec socket.io !</h1>
+
+        <!--<script src="http://localhost:8080/socket.io/socket.io.js"></script>-->
+        <script src="http://192.168.1.14:8080/socket.io/socket.io.js"></script>
+        <script>
+            <!--var socket = io.connect('http://localhost:8080');-->
+            var socket = io.connect('http://192.168.1.14:8080');
+            
+            socket.on('message', function(msg) {
+                console.log(msg);
+            })            
+        </script>
+        
+    </body>
+</html>

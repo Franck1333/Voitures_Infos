@@ -1,14 +1,31 @@
 //AIDE: https://openclassrooms.com/fr/courses/1056721-des-applications-ultra-rapides-avec-node-js/1057503-le-framework-express-js
-
-var express = require('express'); //npm install express //npm install ejs
-
-var app = express();
+//AIDE: https://medium.com/swlh/run-python-script-from-node-js-and-send-data-to-browser-15677fcf199f
+var express = require('express');               //Integration de la LIB express (Framework) //npm install express //npm install ejs
+var app = express();                            //Création d'un Objet express pour l'utilisation du framework du meme nom
+var http = require('http');                     //Integration de la LIB http pour gérer les connection au Serveur WEB
+var server = http.createServer(app);            //Creation d'un Objet pour la gestion du Serveur WEB
+const {spawn} = require("child_process");       //LIB permettant l'execution de programmes/script tiers, comme un script python
 
 app.use(express.static(__dirname + '/public')); //Pour le partage des fichiers CSS.
 
+// ---Chargement de socket.io---
+var io = require('socket.io').listen(server);   //Integration et mise en fonction de la LIB socket.io (WebSocket)
+// Quand un client se connecte, on le note dans la console
+io.sockets.on('connection', function (socket) {
+    console.log('Un client est connecté !');
+    socket.emit('message', 'Vous êtes bien connecté !');
+});
+
 app.get('/', function(req, res) {
-  var system_time = "12h13";
-  res.render('index.ejs', {system_time: system_time});
+
+  var IntervalPython = setInterval(function(){
+    const python = spawn('python',['heure.py']);    //Indication ou ce situe le script Python a utiliser
+    python.stdout.on('data', function (data) {
+      system_time = data.toString();
+      console.log(system_time); 
+    });
+  },1024);      //I must find a way to pass 'system_time' var from setInterval to res.render
+  res.render('index.ejs', {system_time: system_time}); 
 });
 
 app.get('/Infos_Systeme', function(req, res) {
@@ -54,4 +71,4 @@ app.get('/Prix_du_Carburant', function(req, res) {
   res.render('page.ejs', {compteur: req.params.nombre, noms: noms});
 });*/
 
-app.listen(8080);
+server.listen(8080);
