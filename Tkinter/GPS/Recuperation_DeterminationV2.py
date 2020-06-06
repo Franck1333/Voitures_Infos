@@ -57,12 +57,15 @@ def Obtention_GPRMC_Unique():   #Cette fonction permet d'obtenir les information
         
         print(msg.lat +" "+ msg.lat_dir +" "+ msg.lon +" "+ msg.lon_dir)   #Affichage dans la console des informations utiles
 
-        determine_Voiture(msg.latitude,msg.longitude)                      #Reverse Geocoding des informations traitee par PyNMEA2
+        localisation = determine_Voiture(msg.latitude,msg.longitude)       #Reverse Geocoding des informations traitee par PyNMEA2
+        #print(localisation)
 
     except TypeError:                                                      #Gestion d'erreur, Si il y a une erreur de type au niveau de la variable 'msg'
         msg = "Signal GPS Perdue, GPS Signal Lost, TypeError"              #Alors, cette valeurs String sera enregistrer dans 'msg'
+        localisation = "Signal GPS Perdue, GPS Signal Lost, TypeError"     #Alors, cette valeurs String sera enregistrer
         print(msg)                                                         #Affichage de l'erreur sera effectuer dans la console
-    return msg                                                             #Si il y a ou non une erreur, alors on retourne l'information pour une utilisation ulterieur
+    #return msg                                                            #Si il y a ou non une erreur, alors on retourne l'information pour une utilisation ulterieur
+    return localisation
 
 def Obtention_GPRMC_Continue(): #Cette fonction permet d'obtenir les informations NMEA en provenance du Stick USB GPS et de les converir en donnée exploitable via PyNMEA2, Version Lancement repeter
     while True:                                                                                     #Boucle Infinie (Tant que Vrai reste Vrai,)
@@ -113,7 +116,7 @@ def determine_Voiture(Decimal_latitude,Decimal_longitude):  #Cette fonction perm
     return Ville,Numero_Maison,Rue,Region,Code_Postal,Pays                           #Si il y a ou non une erreur, alors on retourne l'information pour une utilisation ulterieur
 
 if __name__ == "__main__":
-    Read_GPSStick_GPRMC()         #Cette fonction permet de lire les informations recu par le port serie de l'Ordinateur en provenance de la cle USB GPS
-    #Obtention_GPRMC_Unique()      #Cette fonction permet d'obtenir les informations NMEA en provenance du Stick USB GPS et de les converir en donnée exploitable via PyNMEA2, Version Lancement unique
+    #Read_GPSStick_GPRMC()         #Cette fonction permet de lire les informations recu par le port serie de l'Ordinateur en provenance de la cle USB GPS
+    Obtention_GPRMC_Unique()      #Cette fonction permet d'obtenir les informations NMEA en provenance du Stick USB GPS et de les converir en donnée exploitable via PyNMEA2, Version Lancement unique
     #Obtention_GPRMC_Continue()    #Cette fonction permet d'obtenir les informations NMEA en provenance du Stick USB GPS et de les converir en donnée exploitable via PyNMEA2, Version Lancement repeter
     #time.sleep(5)

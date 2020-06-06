@@ -23,7 +23,7 @@ def getMap():
     #Nous l'utilisons de cette facon : https://static-maps.yandex.ru/1.x/?lang=en-US&ll=LONGITUDE,LATITUDE&z=13&l=skl,map,trf&size=600,300&pt=LONGITUDE,LATITUDE,flag
     #Telechargement de l'image resultant de la requete
     response = requests.get(url)
-    with open('/home/'+USERNAME+'/Voitures_Infos/GPS/MAP_downloads/map.jpg', 'wb') as f:
+    with open('/home/'+USERNAME+'/Voitures_Infos/Tkinter/GPS/MAP_downloads/map.jpg', 'wb') as f:
         f.write(response.content)
         print('Reception terminer de la Carte/Map .jpg')
     #---Service---#
@@ -37,7 +37,7 @@ def getMap_ISS():
     #print(longitude,latitude)
     url = "https://static-maps.yandex.ru/1.x/?lang=en-US&ll="+str(longitude)+","+str(latitude)+"&z=8&l=skl,map,trf&size=600,300&pt="+str(longitude)+","+str(latitude)+",flag"  #URL utilise pour obtenir la carte 
     response = requests.get(url)
-    with open('/home/'+USERNAME+'/Voitures_Infos/GPS/MAP_downloads/map_ISS.jpg', 'wb') as f:
+    with open('/home/'+USERNAME+'/Voitures_Infos/Tkinter/GPS/MAP_downloads/map_ISS.jpg', 'wb') as f:
         f.write(response.content)
         print('Reception terminer de la Carte/Map .jpg')    #Telechargement de l'image resultant de la requete
     #---Service---#
@@ -63,7 +63,7 @@ def getMapInterface():
 
     canvas.pack(expand=NO, fill=None)                                                                                       #Placement du CANVAS de l'espace
 
-    MAPjpg = PhotoImage(file='/home/'+USERNAME+'/Voitures_Infos/GPS/MAP_downloads/map_ISS.jpg')                             #Chargement de la MAP
+    MAPjpg = PhotoImage(file='/home/'+USERNAME+'/Voitures_Infos/Tkinter/GPS/MAP_downloads/map_ISS.jpg')                             #Chargement de la MAP
 
     canvas.create_image(0,0,image=MAPjpg,anchor=NW)                                                                         #Integration de la MAP
 

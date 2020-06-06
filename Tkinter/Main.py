@@ -36,7 +36,12 @@ sys.path.append("/home/"+USERNAME+"/Voitures_Infos/Tkinter/GPS")        #On indi
 from Etat_Signal_GPS import Etat_connection_GPS                         #Indication pour savoir si la liaison GPS est etablie ou non
 from emergency_number import numero_urgence                             #Obtention des numéros d'urgence disponibles dans le continent de l'utilisateur
 from Boussole import Affichage_boussole                                 #Obtention des coordonees GPS de l'utilisateur
-from Meteo import main_meteo
+from Meteo import main_meteo                                            #Obtention de la meteo au lieu localiser
+from Recuperation_DeterminationV2 import Obtention_GPRMC_Unique         #Avec les coordonnees GPS, nous obtenons l'adresse physique de l'utilisateur simplement
+from Map_YANDEX import getMap                                           #Obtention de la Carte sous forme d'une Image.JPG de la position GPS de l'Utilisateur
+from Map_YANDEX import getMap_ISS                                       #Obtention de la Carte sous forme d'une Image.JPG de la position GPS de la Station Spacial International
+from ISS_locate import GPS_Now_ISS                                      #Obtention de la localisation de l'ISS en temps reel
+from ISS_locate import GPS_Predict_ISS                                  #Obtention des passages visibles de l'ISS dans le ciel par rapporta la Position GPS de l'Utilisateur
 
 #-----------------------------------------------------Localisation de l'emplacement des fichiers necessaires-----------------------------------------------------
 
@@ -145,47 +150,83 @@ def Informations_GPS():
     global Info_GPS
     Info_GPS = Toplevel()
 
-    #Etape-1bis On Declare les informations a mettre a jour
-    #global Numero_urgence_continental_tk
-    global Boussole_Numerique_tk
-    global Vitesse_user_tk
-
     #Etape-2 On recupere les informations a afficher
-    Numero_urgence_continental = numero_urgence()
-    Boussole_Numerique = Affichage_boussole()
-    Vitesse_user = la_Vitesse_GPS()
+    Numero_urgence_continental =    numero_urgence()
+    Boussole_Numerique =    Affichage_boussole()
+    Localisation =  Obtention_GPRMC_Unique()
+    Vitesse_user =  la_Vitesse_GPS() 
 
     #Etape-3 On fait la mise en page des Informations receptionner
     #Zone d'affichage
-    EnveloppeInfo_GPS = LabelFrame(Info_GPS, text="Informations GPS", padx=5, pady=5)       #Création d'une "Zone Frame" à Label
-    EnveloppeInfo_GPS.pack(fill="both", expand="no")                                        #Position de la "Zone Frame" à Label dans la fenêtre
-
+    EnveloppeInfo_GPS = LabelFrame(Info_GPS, text="Informations GPS Basique", padx=5, pady=5)       #Création d'une "Zone Frame" à Label
+    EnveloppeInfo_GPS.pack(fill="both", expand="no")                                                #Position de la "Zone Frame" à Label dans la fenêtre
     Numero_urgence_continental_tk = Label(EnveloppeInfo_GPS, text= Numero_urgence_continental)    
     Boussole_Numerique_tk = Label(EnveloppeInfo_GPS, text= Boussole_Numerique)
-    Vitesse_user_tk = Label(EnveloppeInfo_GPS, text= Vitesse_user)
+
+    EnveloppeInfo_GPS_Complete = LabelFrame(Info_GPS, text="Informations GPS Complète", padx=5, pady=5)         #Création d'une "Zone Frame" à Label
+    EnveloppeInfo_GPS_Complete.pack(fill="both", expand="no")                                                   #Position de la "Zone Frame" à Label dans la fenêtre
+    Localisation_tk = Label(EnveloppeInfo_GPS_Complete, text= Localisation)
+
+    EnveloppeInfo_GPS_Conduite = LabelFrame(Info_GPS, text="Informations GPS Conduite", padx=5, pady=5)         #Création d'une "Zone Frame" à Label
+    EnveloppeInfo_GPS_Conduite.pack(fill="both", expand="no")                                                   #Position de la "Zone Frame" à Label dans la fenêtre
+    Vitesse_user_tk = Label(EnveloppeInfo_GPS_Conduite, text= Vitesse_user)
+    Conso_user_tk = Label(EnveloppeInfo_GPS_Conduite, text="*Estimation Conso Carburant: 5L/100 Km*")
 
     #Etape-4 Indication de l'Emplacement des Informations dans l'Interface
     Numero_urgence_continental_tk.pack()
     Boussole_Numerique_tk.pack()
+    Localisation_tk.pack()
     Vitesse_user_tk.pack()
+    Conso_user_tk.pack() #A concevoir le service.
     
-    #Etape-5 Bouton(s)
-    Button(Info_GPS, text="Fermer", command=Info_GPS.destroy).pack()  #Bouton de Fermeture de la Fenetre actuelle
-
-    #Etape-6 Effectuer les mises a jours des Informations recues
+    #Etape-5 Effectuer les mises a jours des Informations recues
     def update_Informations_GPS():
         print("update_Informations_GPS")
         #Mise à Jour des Informations reçues par recuperation des informations
         #Numero_urgence_continental_tk["text"] = numero_urgence()
         Boussole_Numerique_tk["text"] = Affichage_boussole()
+        Localisation_tk["text"] = Obtention_GPRMC_Unique()
         Vitesse_user_tk["text"] = la_Vitesse_GPS()
         
         # Après x temps , on met à jour le contenue text du LABEL
         fenetre.after(3096, update_Informations_GPS)
         
-    #Etape-6(Bis) Lancer les mises a jours des informations recues
+    #Etape-5(Bis) Lancer les mises a jours des informations recues
     update_Informations_GPS()
 
+    #---MAP YANDEX---
+    def Show_MAP():
+        #Dans cette fonctionnalitee nous allons obtenir une carte ou ce situe l'utilisateur du Logiciel.
+        global Show_YANDEXMAP
+        #global MAPjpg
+        Show_YANDEXMAP = Toplevel()
+        #Execution du script Python permettant la recuperation de la carte et Recuperation de l'emplacement de la carte dans l'ordinateur
+        getMap()
+        #Zone d'affichage
+        EnveloppeMAP = LabelFrame(Show_YANDEXMAP, text="Votre Position Geographique", padx=5, pady=5)   #Création d'une "Zone Frame" à Label
+        EnveloppeMAP.pack(fill="both", expand="no")                                                     #Position de la "Zone Frame" à Label dans la fenêtre
+        canvas = Canvas(EnveloppeMAP,width=600, height=300, bg='black')                         #Creer le CANVAS (Parent,Largeur,Hauteur,couleur de font)
+        canvas.pack(expand=NO, fill=None)                                                       #Placement du CANVAS de l'espace
+        MAPjpg = PhotoImage(file="/home/"+USERNAME+"/Voitures_Infos/Tkinter/GPS/MAP_downloads/map.jpg")           #Chargement de la MAP
+        canvas.file = MAPjpg                                                                    #REFERENCE A GARDER pour pas perdre Tkinter sinon sans cette Reference , il perd l'image (Voir Explication ici: http://effbot.org/pyfaq/why-do-my-tkinter-images-not-appear.htm)
+        image_on_canvas = canvas.create_image(0,0,image=MAPjpg , anchor=NW)                     #Integration de la MAP
+        #--UPDATE--
+        def update_refresh_Show_MAP():
+            print("Mise a Jour de la Cartographie Geographique")                            #Message dans la Console
+            getMap()                                                                        #Obtention d'une Nouvelle Cartographie
+            MAPjpg = PhotoImage(file="/home/"+USERNAME+"/Voitures_Infos/Tkinter/GPS/MAP_downloads/map.jpg")   #Chargement de la MAP
+            canvas.file = MAPjpg                                                            #REFERENCE A GARDER pour pas perdre Tkinter sinon sans cette Reference , il perd l'image (Voir Explication ici: http://effbot.org/pyfaq/why-do-my-tkinter-images-not-appear.htm)
+            canvas.itemconfig(image_on_canvas,image= MAPjpg)                                #Permet la mise a jour de l'image
+             # Après X secondes , on met à jour le contenue text du LABEL
+            Show_YANDEXMAP.after(3000, update_refresh_Show_MAP)
+        #--UPDATE--
+        update_refresh_Show_MAP()   #Fonctionnalité permettant de mettre à jours dans l'interface la Carte Geographique de la position de l'Utilisateur
+        Button(Show_YANDEXMAP, text="Fermer", command=Show_YANDEXMAP.destroy).pack()  #Bouton de Fermeture de la Fenetre actuelle        
+    #---MAP YANDEX---  
+
+    #Etape-6 Bouton(s)
+    Button(Info_GPS, text="Yandex Map", command=Show_MAP).pack()  #Bouton d'affichage de la Map by Yandex
+    Button(Info_GPS, text="Fermer", command=Info_GPS.destroy).pack()  #Bouton de Fermeture de la Fenetre actuelle
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
 def Meteo_Complete():
