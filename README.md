@@ -1,11 +1,22 @@
-*This project is a pretext for me to get more knowledge about UIs and packaging programs*
-
-*The doc is not up to date, please wait...*
-
 <h1 id="voitures_infos">Voitures_Infos</h1>
 <p>This software got you some interesting infos when you go somwhere.</p>
-<p><a href="https://i.ibb.co/8DNC51m/Annotation-2020-03-28-204223.png"><img src="https://i.ibb.co/8DNC51m/Annotation-2020-03-28-204223.png" alt="Image"></a></p>
+In this project, You can use different UI but I recommend strongly to use Tkinter for now. The others are just experimental and prototype.
+<p><a href="https://i.ibb.co/ZLq4sqk/Capture.png"><img src="https://i.ibb.co/ZLq4sqk/Capture.png" alt="Image"></a></p>
 <h2 id="getting-started">Getting Started</h2>
+
+<h3>For Users: </h3>
+
+To use the Software, you will need to download the latest build at this [link](https://github.com/Franck1333/Voitures_Infos/releases) and install and use it.
+
+<p>To use the project, you will need some Hardware :</p>
+<pre><code>A Raspberry Pi (Last Version is better) or any Linux computer compatible,
+An Internet Connection,
+A Micro S.D card (8 Gb Minimum),
+An USB G.P.S (Ublox-7) --&gt;  http://amzn.eu/aG9vR3t,
+A Display.
+</code></pre>
+
+<h3>For Devs: </h3>
 <p>To get a copy of the project, you can go on the GitHub’s webpage of the project and click on the green button to download as a .ZIP file. However, if you’re using a prompt console on an Unix machine use this line :</p>
 <pre><code>git clone https://github.com/Franck1333/Voitures_Infos.git
 </code></pre>
@@ -48,7 +59,7 @@ A Display.
 </code></pre>
 <h2 id="run">Run</h2>
 <h4 id="the-way-to-run-the-project-">The Way to run the project :</h4>
-<p>To run the project; if you want to see the console activities, you can launch the file called <code>Interface_Kivy.py</code>  into the Command Line Prompt with <code>python3 Interface_Kivy.py</code> in the main folder.</p>
+<p>To run the project; if you want to see the console activities, you can launch the file called <code>Interface_Kivy.py</code> for Kivy or for Tkinter, just run <code>Main.py</code>   into the Command Line Prompt with <code>python3 "file".py</code> in the main folder.</p>
 <p>Please don’t use <code>sudo</code>, it’s will not work as expected.</p>
 <h2 id="running-the-tests">Running the tests</h2>
 <p>That’s how to test features:</p>
@@ -94,5 +105,4 @@ GPS : 		Features which use the GPS
 <ul>
 <li><strong>Franck ROCHAT</strong>  -  <em>Initial work</em>  -  <a href="https://github.com/Franck1333">Franck ROCHAT</a>  Thank You !  ❤️</li>
 </ul>
-<p><a href="https://goopics.net/i/51JA2"><img src="https://i.goopics.net/51JA2.jpg" alt="Image"></a></p>
-
+<p><a href="https://i.ibb.co/KGhjrMK/IMG-7010.jpg"><img src="https://i.ibb.co/KGhjrMK/IMG-7010.jpg" alt="Image"></a></p>
