@@ -51,7 +51,7 @@ Main features of the program
 ```
 - Simple_GPS_OLED.ino: That's main program.
 - Simple_OLED_GPS.fzz: The fritzing document scheme.
-- Simple-OLED-GPS-bb.pdf: That's the scheme of the numeric thermometer.
+- Simple-OLED-GPS-bb.pdf: That's the scheme of the circuit.
 - Simple-OLED-GPS-bom.html: This is the list of components needed for this project.
 ```
 
