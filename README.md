@@ -103,6 +103,6 @@ GPS : 		Features which use the GPS
 </code></pre>
 <h2 id="authors">Authors</h2>
 <ul>
-<li><strong>Franck ROCHAT</strong>  -  <em>Initial work</em>  -  <a href="https://github.com/Franck1333">Franck ROCHAT</a>  Thank You !  ❤️</li>
+<li><strong>Franck ROCHAT</strong>  -  <em>Initial work</em>  -  <a href="https://github.com/Franck1333">Franck ROCHAT</a>  Thank You !  ❤️ :sunflower: </li>
 </ul>
 <p><a href="https://i.ibb.co/KGhjrMK/IMG-7010.jpg"><img src="https://i.ibb.co/KGhjrMK/IMG-7010.jpg" alt="Image"></a></p>
