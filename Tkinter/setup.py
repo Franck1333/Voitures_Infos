@@ -21,6 +21,6 @@ setup(
     license='lgpl',
     packages=find_packages(),
     include_package_data=True,
-    install_requires=["pyserial==3.2.1","geopy==1.20.0","matplotlib==3.0.3","numpy==1.17.1","pandas==0.25.1","pynmea2==1.15.0","pyowm==2.9.0","requests==2.22.0","Unidecode==1.1.1","urllib3==1.25.6","wifi==0.3.8"], #Get the Dependencies from Pypi (pip install)
+    install_requires=["pyserial==3.2.1","geopy==1.20.0","matplotlib==3.0.3","numpy==1.17.1","pandas==0.25.1","pynmea2==1.15.0","pyowm==2.9.0","requests==2.22.0","Unidecode==1.1.1","urllib3==1.25.8","wifi==0.3.8"], #Get the Dependencies from Pypi (pip install)
     dependency_links=[], #Get the Dependencies via HTTP(s)
 )
