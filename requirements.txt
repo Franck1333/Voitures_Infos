@@ -7,6 +7,6 @@ pynmea2==1.15.0
 pyowm==2.9.0
 requests==2.22.0
 Unidecode==1.1.1
-urllib3==1.25.6
+urllib3==1.26.5
 wifi==0.3.8
 pyserial==3.2.1
