@@ -1,6 +1,6 @@
 geopy==1.20.0
 matplotlib==3.0.3
-numpy==1.17.1
+numpy==1.22.0
 pandas==0.25.1
 pynmea2==1.15.0
 pyowm==2.9.0
